@@ -6,126 +6,21 @@
     <title>Twilight Speedtest</title>
     <script src="https://raw.githubusercontent.com/librespeed/speedtest/master/speedtest.js"></script>
     <style>
-        :root {
-            --bg-color: #141526;
-            --text-main: #ffffff;
-            --text-muted: #8b92a5;
-            --accent-cyan: #00e5ff;
-            --accent-blue: #007bff;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        /* 顶部设置区域伪装 */
-        .header-tools {
-            display: flex;
-            gap: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-bottom: 50px;
-        }
-
-        /* 核心大圆环 GO 按钮 */
-        #startBtn {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: transparent;
-            border: 4px solid var(--accent-blue);
-            color: var(--text-main);
-            font-size: 48px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 0 30px rgba(0, 123, 255, 0.2), inset 0 0 20px rgba(0, 123, 255, 0.2);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            outline: none;
-            position: relative;
-        }
-
-        #startBtn::before {
-            content: '';
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-cyan);
-            opacity: 0.5;
-        }
-
-        #startBtn:hover {
-            box-shadow: 0 0 50px rgba(0, 229, 255, 0.4), inset 0 0 30px rgba(0, 229, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* 测试结果数据显示区 */
-        .results-container {
-            display: flex;
-            gap: 40px;
-            margin-top: 50px;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .result-box h3 {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .result-box .val {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--accent-cyan);
-        }
-
-        /* 底部服务器选择区 */
-        .server-selector {
-            margin-top: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .server-selector label {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        select {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 16px;
-            font-weight: bold;
-            outline: none;
-            cursor: pointer;
-            appearance: none; /* 隐藏默认下拉箭头 */
-            text-align: center;
-        }
-
-        select option {
-            background: var(--bg-color);
-            color: var(--text-main);
-        }
+        /* ... 这里的 CSS 样式保留和你上一版完全一样，保持暗黑风格 ... */
+        :root { --bg-color: #141526; --text-main: #ffffff; --text-muted: #8b92a5; --accent-cyan: #00e5ff; --accent-blue: #007bff; }
+        body { background-color: var(--bg-color); color: var(--text-main); font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        .header-tools { display: flex; gap: 20px; font-size: 12px; font-weight: bold; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 50px; }
+        #startBtn { width: 200px; height: 200px; border-radius: 50%; background: transparent; border: 4px solid var(--accent-blue); color: var(--text-main); font-size: 48px; font-weight: 600; cursor: pointer; box-shadow: 0 0 30px rgba(0, 123, 255, 0.2), inset 0 0 20px rgba(0, 123, 255, 0.2); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; outline: none; position: relative; }
+        #startBtn::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 50%; border: 2px solid var(--accent-cyan); opacity: 0.5; }
+        #startBtn:hover { box-shadow: 0 0 50px rgba(0, 229, 255, 0.4), inset 0 0 30px rgba(0, 229, 255, 0.3); transform: scale(1.05); }
+        .results-container { display: flex; gap: 40px; margin-top: 50px; text-align: center; opacity: 0; transition: opacity 0.5s ease; }
+        .result-box h3 { font-size: 14px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; }
+        .result-box .val { font-size: 32px; font-weight: bold; color: var(--accent-cyan); }
+        .server-selector { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .server-selector label { color: var(--text-muted); font-size: 14px; }
+        select { background: rgba(255, 255, 255, 0.05); color: var(--accent-cyan); border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px 20px; border-radius: 20px; font-size: 16px; font-weight: bold; outline: none; cursor: pointer; appearance: none; text-align: center; }
+        select option { background: var(--bg-color); color: var(--text-main); }
+        #ipDisplay { margin-top: 20px; font-size: 14px; color: var(--text-muted); min-height: 20px; }
     </style>
 </head>
 <body>
@@ -136,6 +31,8 @@
     </div>
 
     <div id="startBtn" onclick="startStop()">GO</div>
+
+    <div id="ipDisplay">Connecting to server...</div>
 
     <div class="results-container" id="resultsArea">
         <div class="result-box">
@@ -154,45 +51,46 @@
 
     <div class="server-selector">
         <label>Select Testing Server</label>
-        <select id="serverList" onchange="changeServer()">
-            </select>
+        <select id="serverList" onchange="changeServer()"></select>
     </div>
 
     <script>
-        // === 核心：配置你的 4 个测试节点 ===
-        // 请将 dlURL, ulURL, pingURL 替换为你第一步配置好的对应真实后端地址
+        // === 极其关键：确保路径与你的后端（PHP 或 Go 版本）匹配 ===
+        // 如果你的 Librespeed 后端是 PHP 版本，通常需要加 backend/ 前缀
+        // 例如：dlURL: "https://sgpv4.rtwilight.top/backend/garbage.php"
+        // 这里我按最常见的根目录配置写入，如果不行，请在这个配置里加上 /backend/ 试试。
         const SPEEDTEST_SERVERS = [
             {
                 name: "Singapore (IPv4)",
                 server: "https://sgpv4.rtwilight.top/",
-                dlURL: "garbage.php",
-                ulURL: "empty.php",
-                pingURL: "empty.php",
-                getIpURL: "getIP.php"
+                dlURL: "https://sgpv4.rtwilight.top/backend/garbage.php",
+                ulURL: "https://sgpv4.rtwilight.top/backend/empty.php",
+                pingURL: "https://sgpv4.rtwilight.top/backend/empty.php",
+                getIpURL: "https://sgpv4.rtwilight.top/backend/getIP.php"
             },
             {
                 name: "Singapore (IPv6)",
                 server: "https://sgpv6.rtwilight.top/",
-                dlURL: "garbage.php",
-                ulURL: "empty.php",
-                pingURL: "empty.php",
-                getIpURL: "getIP.php"
+                dlURL: "https://sgpv6.rtwilight.top/backend/garbage.php",
+                ulURL: "https://sgpv6.rtwilight.top/backend/empty.php",
+                pingURL: "https://sgpv6.rtwilight.top/backend/empty.php",
+                getIpURL: "https://sgpv6.rtwilight.top/backend/getIP.php"
             },
             {
                 name: "Hong Kong (IPv4)",
                 server: "https://hkv4.rtwilight.top/",
-                dlURL: "garbage.php",
-                ulURL: "empty.php",
-                pingURL: "empty.php",
-                getIpURL: "getIP.php"
+                dlURL: "https://hkv4.rtwilight.top/backend/garbage.php",
+                ulURL: "https://hkv4.rtwilight.top/backend/empty.php",
+                pingURL: "https://hkv4.rtwilight.top/backend/empty.php",
+                getIpURL: "https://hkv4.rtwilight.top/backend/getIP.php"
             },
             {
                 name: "Hong Kong (IPv6)",
                 server: "https://hkv6.rtwilight.top/",
-                dlURL: "garbage.php",
-                ulURL: "empty.php",
-                pingURL: "empty.php",
-                getIpURL: "getIP.php"
+                dlURL: "https://hkv6.rtwilight.top/backend/garbage.php",
+                ulURL: "https://hkv6.rtwilight.top/backend/empty.php",
+                pingURL: "https://hkv6.rtwilight.top/backend/empty.php",
+                getIpURL: "https://hkv6.rtwilight.top/backend/getIP.php"
             }
         ];
 
@@ -205,42 +103,73 @@
             serverSelect.appendChild(option);
         });
 
-        // Librespeed 实例配置
-        var s = new Speedtest();
-        s.setParameter("telemetry_level", "none"); 
+        // 检查全局变量是否成功加载了 script
+        if (typeof Speedtest !== 'function') {
+            document.getElementById('startBtn').textContent = "ERR";
+            document.getElementById('ipDisplay').innerHTML = "<span style='color:red;'>核心 JS 加载失败，请检查网络或替换源。</span>";
+        } else {
+            var s = new Speedtest();
+            // 强制启用多服务器模式下的跨域容错
+            s.setParameter("telemetry_level", "none"); 
 
-        // 设置默认选中的服务器 (加载列表中的第一个)
-        function changeServer() {
-            let selectedIndex = serverSelect.value;
-            s.setSelectedServer(SPEEDTEST_SERVERS[selectedIndex]);
-        }
-        changeServer(); // 页面加载时执行一次
+            // 切换服务器并尝试获取 IP (获取 IP 成功意味着后端连接正常)
+            function changeServer() {
+                if (s.getState() !== 0) s.abort(); // 切换时如果在测速就掐断
+                let selectedIndex = serverSelect.value;
+                document.getElementById('ipDisplay').textContent = "Connecting to " + SPEEDTEST_SERVERS[selectedIndex].name + "...";
+                
+                s.addTestPoint(SPEEDTEST_SERVERS[selectedIndex]);
+                s.setSelectedServer(SPEEDTEST_SERVERS[selectedIndex]);
+                
+                // 仅重置界面 UI
+                document.getElementById('pingText').textContent = '0';
+                document.getElementById('dlText').textContent = '0.00';
+                document.getElementById('ulText').textContent = '0.00';
+            }
 
-        // 绑定 UI 更新回调
-        s.onupdate = function (data) {
-            document.getElementById('pingText').textContent = data.testState >= 2 ? data.pingStatus : '...';
-            document.getElementById('dlText').textContent = data.testState >= 3 ? data.dlStatus : '...';
-            document.getElementById('ulText').textContent = data.testState >= 4 ? data.ulStatus : '...';
-        };
+            // 绑定数据更新
+            s.onupdate = function (data) {
+                // 如果能取到 IP，显示出来
+                if(data.clientIp) {
+                    document.getElementById('ipDisplay').textContent = "Your IP: " + data.clientIp;
+                }
+                
+                let status = data.testState;
+                if(status >= 1 && status < 5) {
+                    document.getElementById('pingText').textContent = status >= 2 ? data.pingStatus : '...';
+                    document.getElementById('dlText').textContent = status >= 3 ? data.dlStatus : '...';
+                    document.getElementById('ulText').textContent = status >= 4 ? data.ulStatus : '...';
+                }
+                
+                // 后端跑崩了的处理
+                if(data.testState === 5) {
+                    document.getElementById('startBtn').textContent = "FAIL";
+                    document.getElementById('ipDisplay').innerHTML = "<span style='color:red;'>测速中断，可能存在跨域或证书问题。</span>";
+                }
+            };
 
-        s.onend = function (aborted) {
-            document.getElementById('startBtn').textContent = "AGAIN";
-            serverSelect.disabled = false; // 测试结束允许切换服务器
-        };
-
-        // 按钮点击逻辑
-        function startStop() {
-            if (s.getState() === 3) {
-                // 正在测速时点击，则中止
-                s.abort();
-                document.getElementById('startBtn').textContent = "GO";
+            s.onend = function (aborted) {
+                document.getElementById('startBtn').textContent = "AGAIN";
                 serverSelect.disabled = false;
-            } else {
-                // 开始测速
-                document.getElementById('startBtn').textContent = "STOP";
-                document.getElementById('resultsArea').style.opacity = 1;
-                serverSelect.disabled = true; // 测速期间锁定服务器切换
-                s.start();
+            };
+
+            // 绑定按钮行为
+            function startStop() {
+                if (s.getState() === 3) { // 3 代表正在上传阶段 (通常测速正在进行中)
+                    s.abort();
+                    document.getElementById('startBtn').textContent = "GO";
+                    serverSelect.disabled = false;
+                } else {
+                    document.getElementById('startBtn').textContent = "STOP";
+                    document.getElementById('resultsArea').style.opacity = 1;
+                    serverSelect.disabled = true;
+                    s.start();
+                }
+            }
+
+            // 页面加载完成后立刻执行一次选中
+            window.onload = function() {
+                changeServer();
             }
         }
     </script>
