@@ -3,63 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twilight 全球测速节点</title>
+    <title>Twilight Speedtest</title>
+    <script src="https://raw.githubusercontent.com/librespeed/speedtest/master/speedtest.js"></script>
     <style>
+        :root {
+            --bg-color: #141526;
+            --text-main: #ffffff;
+            --text-muted: #8b92a5;
+            --accent-cyan: #00e5ff;
+            --accent-blue: #007bff;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
-            background-color: #f4f7f6;
-            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
-        .container {
-            background: #ffffff;
-            padding: 40px 50px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
-        h1 { margin-top: 0; font-size: 24px; color: #2c3e50; }
-        p { color: #7f8c8d; margin-bottom: 30px; }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+
+        /* 顶部设置区域伪装 */
+        .header-tools {
+            display: flex;
             gap: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 50px;
         }
-        .btn {
-            display: block;
-            padding: 15px 20px;
-            text-decoration: none;
-            color: white;
-            border-radius: 10px;
+
+        /* 核心大圆环 GO 按钮 */
+        #startBtn {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: transparent;
+            border: 4px solid var(--accent-blue);
+            color: var(--text-main);
+            font-size: 48px;
             font-weight: 600;
-            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.2), inset 0 0 20px rgba(0, 123, 255, 0.2);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            position: relative;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-        .btn:active { transform: translateY(0); }
-        
-        /* 颜色区分 v4 和 v6 */
-        .v4 { background: linear-gradient(135deg, #3498db, #2980b9); }
-        .v6 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+
+        #startBtn::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-cyan);
+            opacity: 0.5;
+        }
+
+        #startBtn:hover {
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.4), inset 0 0 30px rgba(0, 229, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* 测试结果数据显示区 */
+        .results-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .result-box h3 {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .result-box .val {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+
+        /* 底部服务器选择区 */
+        .server-selector {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .server-selector label {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        select {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            outline: none;
+            cursor: pointer;
+            appearance: none; /* 隐藏默认下拉箭头 */
+            text-align: center;
+        }
+
+        select option {
+            background: var(--bg-color);
+            color: var(--text-main);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌐 Twilight 测速网络</h1>
-        <p>请选择您要测试的地理节点与网络协议</p>
-        <div class="grid">
-            <a href="http://hkv4.rtwilight.top" class="btn v4">🇭🇰 香港 v4</a>
-            <a href="http://hkv6.rtwilight.top" class="btn v6">🇭🇰 香港 v6</a>
-            <a href="http://sgpv4.rtwilight.top" class="btn v4">🇸🇬 新加坡 v4</a>
-            <a href="http://sgpv6.rtwilight.top" class="btn v6">🇸🇬 新加坡 v6</a>
+
+    <div class="header-tools">
+        <span>✓ RESULTS</span>
+        <span>⚙ SETTINGS</span>
+    </div>
+
+    <div id="startBtn" onclick="startStop()">GO</div>
+
+    <div class="results-container" id="resultsArea">
+        <div class="result-box">
+            <h3>Ping</h3>
+            <div class="val"><span id="pingText">0</span> ms</div>
+        </div>
+        <div class="result-box">
+            <h3>Download</h3>
+            <div class="val"><span id="dlText">0.00</span> Mbps</div>
+        </div>
+        <div class="result-box">
+            <h3>Upload</h3>
+            <div class="val"><span id="ulText">0.00</span> Mbps</div>
         </div>
     </div>
+
+    <div class="server-selector">
+        <label>Select Testing Server</label>
+        <select id="serverList" onchange="changeServer()">
+            </select>
+    </div>
+
+    <script>
+        // === 核心：配置你的 4 个测试节点 ===
+        // 请将 dlURL, ulURL, pingURL 替换为你第一步配置好的对应真实后端地址
+        const SPEEDTEST_SERVERS = [
+            {
+                name: "Singapore (IPv4)",
+                server: "https://sgpv4.rtwilight.top/",
+                dlURL: "garbage.php",
+                ulURL: "empty.php",
+                pingURL: "empty.php",
+                getIpURL: "getIP.php"
+            },
+            {
+                name: "Singapore (IPv6)",
+                server: "https://sgpv6.rtwilight.top/",
+                dlURL: "garbage.php",
+                ulURL: "empty.php",
+                pingURL: "empty.php",
+                getIpURL: "getIP.php"
+            },
+            {
+                name: "Hong Kong (IPv4)",
+                server: "https://hkv4.rtwilight.top/",
+                dlURL: "garbage.php",
+                ulURL: "empty.php",
+                pingURL: "empty.php",
+                getIpURL: "getIP.php"
+            },
+            {
+                name: "Hong Kong (IPv6)",
+                server: "https://hkv6.rtwilight.top/",
+                dlURL: "garbage.php",
+                ulURL: "empty.php",
+                pingURL: "empty.php",
+                getIpURL: "getIP.php"
+            }
+        ];
+
+        // 初始化下拉菜单
+        const serverSelect = document.getElementById('serverList');
+        SPEEDTEST_SERVERS.forEach((server, index) => {
+            let option = document.createElement('option');
+            option.value = index;
+            option.text = server.name;
+            serverSelect.appendChild(option);
+        });
+
+        // Librespeed 实例配置
+        var s = new Speedtest();
+        s.setParameter("telemetry_level", "none"); 
+
+        // 设置默认选中的服务器 (加载列表中的第一个)
+        function changeServer() {
+            let selectedIndex = serverSelect.value;
+            s.setSelectedServer(SPEEDTEST_SERVERS[selectedIndex]);
+        }
+        changeServer(); // 页面加载时执行一次
+
+        // 绑定 UI 更新回调
+        s.onupdate = function (data) {
+            document.getElementById('pingText').textContent = data.testState >= 2 ? data.pingStatus : '...';
+            document.getElementById('dlText').textContent = data.testState >= 3 ? data.dlStatus : '...';
+            document.getElementById('ulText').textContent = data.testState >= 4 ? data.ulStatus : '...';
+        };
+
+        s.onend = function (aborted) {
+            document.getElementById('startBtn').textContent = "AGAIN";
+            serverSelect.disabled = false; // 测试结束允许切换服务器
+        };
+
+        // 按钮点击逻辑
+        function startStop() {
+            if (s.getState() === 3) {
+                // 正在测速时点击，则中止
+                s.abort();
+                document.getElementById('startBtn').textContent = "GO";
+                serverSelect.disabled = false;
+            } else {
+                // 开始测速
+                document.getElementById('startBtn').textContent = "STOP";
+                document.getElementById('resultsArea').style.opacity = 1;
+                serverSelect.disabled = true; // 测速期间锁定服务器切换
+                s.start();
+            }
+        }
+    </script>
 </body>
 </html>
